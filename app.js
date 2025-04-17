@@ -90,7 +90,7 @@ wss.on('connection', (ws) => {
   console.log('Arduino connected via raw WebSocket');
 
   ws.on('message', (msg) => {
-    console.log('Data from Arduino:', msg.toString());
+    // console.log('Data from Arduino:', msg.toString());
 
     // Forward this to all socket.io clients
     io.emit('patient_info_live', msg.toString());

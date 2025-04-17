@@ -1,0 +1,90 @@
+body {
+    background-color: #f4f6fa;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .card-custom {
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    padding: 20px;
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .stat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+  .welcome-card {
+    background: linear-gradient(to right, #ffffff, #f8f9ff);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+  }
+  .doctor-img {
+    max-height: 140px;
+  }
+  .highlight-name {
+    color: #007bff;
+    font-weight: 600;
+  }
+  .stat-title {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 4px;
+  }
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .metric-card {
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    text-align: center;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .circle-wrap {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+  }
+  .circle-wrap svg {
+    transform: rotate(-90deg);
+  }
+  .circle-bg {
+    stroke: #e6e6e6;
+  }
+  .circle-progress.water {
+    stroke: #0d6efd;
+  }
+  .circle-progress.health {
+    stroke: #f1c40f;
+  }
+  .circle-wrap .icon-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+  }
+  .metric-label {
+    font-weight: 600;
+    margin-top: 5px;
+  }
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .metric-note {
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
