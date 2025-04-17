@@ -1,26 +1,78 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const PatientScheme = new Schema({
-    Name:{
+
+const PatientSchema = new Schema({
+    Name: {
         type: String,
-        required : true,
+        required: true,
     },
-    Age:{
+    Age: {
         type: Number,
-        required : true,
+        required: true,
+    },
+    Gender: {
+        type: Number, // 0: Male, 1: Female, 2: Other
     },
     image: {
         type: String,
-        required:true,
-
-        },
-    Prescription:[
+        required: true,
+    },
+    Contact: {
+        Phone: String,
+        Email: String,
+        Address: String,
+    },
+    EmergencyContact: {
+        Name: String,
+        Relationship: String,
+        Phone: String,
+    },
+    BloodGroup: {
+        type: String,
+        enum: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],
+    },
+    Allergies: [String],
+    MedicalHistory: [
         {
-            type:String,
-            Dose_Time:Number, // 0->morning , 1->afternoon , 2->evening
+            condition: String,
+            diagnosisDate: Date,
+            notes: String,
         }
-    ]
-});
+    ],
+    CurrentCondition: {
+        notes: String,
+        critical: {
+            type: Boolean, // 0-> not critical 1->critical
+            default: false,
+        },
+    },
+    Prescription: [
+        {
+            medicine: String,
+            Dose_Time: Number, // 0 -> Morning, 1 -> Afternoon, 2 -> Evening
+            dosage: String,
+            duration: String, // e.g., "5 days"
+        }
+    ],
+    AssignedDoctor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Doctor'
+    },
+    AdmissionDate: {
+        type: Date,
+    },
+    DischargeDate: {
+        type: Date,
+    },
+    RoomNumber: {
+        type: String,
+    },
+    Status: {
+        type: String,
+        enum: ['Admitted', 'Discharged', 'Under Observation', 'ICU'],
+        default: 'Admitted'
+    },
+}, { timestamps: true });
 
-const patientScheme = mongoose.model("PatientScheme" , PatientScheme);
-module.exports = patientScheme;
+const PatientModel = mongoose.model("Patient", PatientSchema);
+module.exports = PatientModel;

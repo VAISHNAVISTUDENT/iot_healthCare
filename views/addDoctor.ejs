@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Doctor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body style="margin: 100px;">
+  <h1>Add a New Doctor</h1>
+  <form method="POST" action="/addDoctor">
+    <!-- Basic Info -->
+    <div class="mb-3">
+      <label for="Name" class="form-label">Name</label>
+      <input name="Doctor[Name]" class="form-control" id="Name" type="text" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="Age" class="form-label">Age</label>
+      <input name="Doctor[Age]" class="form-control" id="Age" type="number" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="Gender" class="form-label">Gender</label>
+      <select name="Doctor[Gender]" class="form-select" id="Gender">
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+        <option value="2">Other</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Image URL</label>
+      <input name="Doctor[image]" class="form-control" id="image" type="url" />
+    </div>
+
+    <!-- Contact Info -->
+    <div class="mb-3">
+      <label for="Phone" class="form-label">Phone</label>
+      <input name="Doctor[Contact][Phone]" class="form-control" id="Phone" type="text" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Email" class="form-label">Email</label>
+      <input name="Doctor[Contact][Email]" class="form-control" id="Email" type="email" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Address" class="form-label">Address</label>
+      <textarea name="Doctor[Contact][Address]" class="form-control" id="Address"></textarea>
+    </div>
+
+    <!-- Professional Info -->
+    <div class="mb-3">
+      <label for="Qualification" class="form-label">Qualification</label>
+      <input name="Doctor[Qualification]" class="form-control" id="Qualification" type="text" placeholder="e.g., MBBS, MD" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Specialization" class="form-label">Specialization</label>
+      <input name="Doctor[Specialization]" class="form-control" id="Specialization" type="text" placeholder="e.g., Cardiology" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Experience" class="form-label">Experience (in years)</label>
+      <input name="Doctor[Experience]" class="form-control" id="Experience" type="number" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Department" class="form-label">Department</label>
+      <input name="Doctor[Department]" class="form-control" id="Department" type="text" />
+    </div>
+
+    <div class="mb-3">
+      <label for="ConsultationFee" class="form-label">Consultation Fee</label>
+      <input name="Doctor[ConsultationFee]" class="form-control" id="ConsultationFee" type="number" />
+    </div>
+
+    <!-- Availability -->
+    <h5>Availability</h5>
+    <div class="mb-3">
+      <label for="Days" class="form-label">Available Days (comma-separated)</label>
+      <input name="Doctor[Availability][days]" class="form-control" id="Days" type="text" placeholder="e.g., Monday, Wednesday, Friday" />
+    </div>
+
+    <div class="mb-3">
+      <label for="StartTime" class="form-label">Start Time</label>
+      <input name="Doctor[Availability][time][start]" class="form-control" id="StartTime" type="time" />
+    </div>
+
+    <div class="mb-3">
+      <label for="EndTime" class="form-label">End Time</label>
+      <input name="Doctor[Availability][time][end]" class="form-control" id="EndTime" type="time" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Status" class="form-label">Status</label>
+      <select name="Doctor[Status]" class="form-select" id="Status">
+        <option value="Available">Available</option>
+        <option value="On Leave">On Leave</option>
+        <option value="In Surgery">In Surgery</option>
+        <option value="Unavailable">Unavailable</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Doctor</button>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,36 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Patient</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body style="margin: 100px;">
-    <!-- Vertically centered modal -->
-     <h1>Add the new Patient</h1>
-        <form method="POST" action="/addPatient">
-            <div class="mb-3">
-              <label for="Name" class="form-label">Name</label>
-              <input name="Patient[Name]" class="form-control" id="Name" placeholder="Enter Name" type="text" required />
-              <div class="invalid-feedback">Name is required.</div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="image" class="form-label">image</label>
-              <input name="Patient[image]" class="form-control" id="url" placeholder="Enter Image URL" type="url" required />
-              <div class="invalid-feedback">Image is required.</div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="Age" class="form-label">Age</label>
-              <input name="Patient[Age]" class="form-control" id="Age" placeholder="Enter Age" type="number" required />
-              <div class="invalid-feedback">Age is required.</div>
-            </div>  
-            <button type="submit" class="btn btn-primary">Add</button>
-        </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+  <h1>Add a New Patient</h1>
+  <form method="POST" action="/addPatient">
+    <!-- Basic Info -->
+    <div class="mb-3">
+      <label for="Name" class="form-label">Name</label>
+      <input name="Patient[Name]" class="form-control" id="Name" type="text" placeholder="Enter Name" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="Age" class="form-label">Age</label>
+      <input name="Patient[Age]" class="form-control" id="Age" type="number" placeholder="Enter Age" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="Gender" class="form-label">Gender</label>
+      <select name="Patient[Gender]" class="form-select" id="Gender">
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+        <option value="2">Other</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label">Image URL</label>
+      <input name="Patient[image]" class="form-control" id="image" type="url" placeholder="Enter Image URL" required />
+    </div>
+
+    <!-- Contact Info -->
+    <div class="mb-3">
+      <label for="Phone" class="form-label">Phone</label>
+      <input name="Patient[Contact][Phone]" class="form-control" id="Phone" type="text" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Email" class="form-label">Email</label>
+      <input name="Patient[Contact][Email]" class="form-control" id="Email" type="email" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Address" class="form-label">Address</label>
+      <textarea name="Patient[Contact][Address]" class="form-control" id="Address"></textarea>
+    </div>
+
+    <!-- Emergency Contact -->
+    <h5>Emergency Contact</h5>
+    <div class="mb-3">
+      <label for="ECName" class="form-label">Name</label>
+      <input name="Patient[EmergencyContact][Name]" class="form-control" id="ECName" type="text" />
+    </div>
+
+    <div class="mb-3">
+      <label for="ECRelationship" class="form-label">Relationship</label>
+      <input name="Patient[EmergencyContact][Relationship]" class="form-control" id="ECRelationship" type="text" />
+    </div>
+
+    <div class="mb-3">
+      <label for="ECPhone" class="form-label">Phone</label>
+      <input name="Patient[EmergencyContact][Phone]" class="form-control" id="ECPhone" type="text" />
+    </div>
+
+    <!-- Medical Info -->
+    <div class="mb-3">
+      <label for="BloodGroup" class="form-label">Blood Group</label>
+      <select name="Patient[BloodGroup]" class="form-select" id="BloodGroup">
+        <option value="">Select</option>
+        <option value="A+">A+</option><option value="A-">A-</option>
+        <option value="B+">B+</option><option value="B-">B-</option>
+        <option value="O+">O+</option><option value="O-">O-</option>
+        <option value="AB+">AB+</option><option value="AB-">AB-</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="Allergies" class="form-label">Allergies (comma-separated)</label>
+      <input name="Patient[Allergies]" class="form-control" id="Allergies" type="text" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Condition" class="form-label">Current Condition Notes</label>
+      <textarea name="Patient[CurrentCondition][notes]" class="form-control" id="Condition"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="Critical" class="form-label">Is Critical?</label>
+      <select name="Patient[CurrentCondition][critical]" class="form-select" id="Critical">
+        <option value="false">No</option>
+        <option value="true">Yes</option>
+      </select>
+    </div>
+
+    <!-- Room & Status -->
+    <div class="mb-3">
+      <label for="RoomNumber" class="form-label">Room Number</label>
+      <input name="Patient[RoomNumber]" class="form-control" id="RoomNumber" type="text" />
+    </div>
+
+    <div class="mb-3">
+      <label for="Status" class="form-label">Patient Status</label>
+      <select name="Patient[Status]" class="form-select" id="Status">
+        <option value="Admitted">Admitted</option>
+        <option value="Discharged">Discharged</option>
+        <option value="Under Observation">Under Observation</option>
+        <option value="ICU">ICU</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Patient</button>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
