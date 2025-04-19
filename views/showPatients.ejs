@@ -15,7 +15,7 @@
                     <div class="card-body">
                       <h5 class="card-title"><%= patient.Name %> </h5>
                       <p class="card-text"><%= patient.Prescription %></p>
-                      <a href="/showPatientDashboard" class="btn btn-primary">ShowFull Analysis</a>
+                      <a href="<%= patient.RoomNumber %>/showPatientDashboard" class="btn btn-primary">ShowFull Analysis</a>
                     </div>
                   </div>
             <% } %>
