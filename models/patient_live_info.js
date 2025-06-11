@@ -2,33 +2,26 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const LivePatientSchema = new Schema({
-    patientId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Patient',
-        required: true,
+    selfId: {
+        type:Number
     },
-    Temp: {
-        type: Number, // better as a Number for comparisons
-        required: true,
-    },
-    Heart_Beat: {
-        type: Number,
-        required: true,
-    },
-    SpO2: {
+    pulse: {
         type: Number,
     },
-    RespirationRate: {
+    temp: {
         type: Number,
     },
-    BloodPressure: {
-        systolic: Number,
-        diastolic: Number,
+    o2: {
+        type: Number,
     },
-    Status: {
-        type: String,
-        enum: ["Normal", "Critical", "Alert"],
-        default: "Normal"
+    co2: {
+        type: Number,
+    },
+    smoke: {
+        type: Number,
+    },
+    voc: {
+        type: Number,
     },
     recordedAt: {
         type: Date,

@@ -9,6 +9,103 @@
   <link rel="stylesheet" href="/showPatient.css">
 </head>
 <body>
+<style>
+  .welcome-card {
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  border-radius: 20px;
+  padding: 24px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.welcome-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.highlight-name {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.welcome-card p {
+  font-size: 14px;
+  color: #444;
+}
+
+.status {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  color: red; /* Set dynamically with JS */
+}
+
+.doctor-img {
+  width: 120px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+.metric-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+}
+
+.circle-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px auto;
+}
+
+.circle-bg {
+  stroke: #e6e6e6;
+}
+
+.circle-progress {
+  stroke: #ffc107;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dashoffset 1s ease;
+}
+
+.icon-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+}
+
+.metric-label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.metric-value {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.metric-note {
+  font-size: 12px;
+  color: #666;
+}
+
+</style>
 
 <div class="container my-4">
   <!-- Welcome Card -->
@@ -20,7 +117,7 @@
       <p class="mb-1"><strong>Gender: </strong> <%= patient.Gender %></p>
       <p class="mb-1"><strong>Status: </strong> <%= patient.Status %></p>
       <p class="mb-0">Is allergic to: <%= ...patient.Allergies %></p>
-      <p class="status" id="status" style="color: red;">Offline</p>
+      <p class="status" id="status">Offline</p>
     </div>
     <div>
       <img src="<%= patient.image %>" alt="Doctor Illustration" class="doctor-img">
@@ -56,7 +153,6 @@
         <div class="stat-title text-center">Alerts</div>
         <ul class="list-unstyled mb-0 mt-2 small">
           <li class="mb-2 text-danger"><i class="bi bi-capsule me-2"></i>Take medicine on time</li>
-          <li class="mb-2 text-warning"><i class="bi bi-bell me-2"></i>Appointment at 5 PM</li>
           <li class="mb-2 text-info"><i class="bi bi-clock-history me-2"></i>Time for hydration</li>
           <li class="text-success"><i class="bi bi-shield-check me-2"></i>Vitals are stable</li>
         </ul>
@@ -64,21 +160,21 @@
     </div>
 
     <!-- General Health Card -->
-    <div class="col-md-3 col-sm-6 ">
-      <div class="metric-card">
+    <div class="col-md-3 col-sm-6">
+      <div class="metric-card text-center">
         <div class="circle-wrap">
           <svg width="80" height="80">
-            <circle cx="40" cy="40" r="35" stroke-width="8" class="circle-bg" fill="none"/>
-            <circle cx="40" cy="40" r="35" stroke-width="8" class="circle-progress health" fill="none"
-              stroke-dasharray="220" stroke-dashoffset="85" />
+            <circle cx="40" cy="40" r="35" stroke-width="8" class="circle-bg" fill="none" />
+            <circle cx="40" cy="40" r="35" stroke-width="8" class="circle-progress health" fill="none" />
           </svg>
           <div class="icon-center text-warning">🧍</div>
         </div>
         <div class="metric-label">General Health</div>
-        <div class="metric-value text-warning">61%</div>
-        <div class="metric-note">5% higher than last week</div>
+        <div class="metric-value text-warning" id="health-value">--%</div>
+        <div class="metric-note" id="health-note"></div>
       </div>
     </div>
+    
   </div>
 
   <!-- New Row: Prescription -->
@@ -181,5 +277,66 @@
     }
   });
 </script>
+<script>
+  // Example sensor values (these would be dynamically set from elsewhere)
+  const temp = 39;  // Temperature in °C
+  const o2 = 91;    // Oxygen %
+  const pulse = 105;
+  const smoke = 60;
+
+  const alertList = document.getElementById("alert-list");
+
+  if (temp > 38) {
+    alertList.innerHTML += `<li class="mb-2 text-danger"><i class="bi bi-thermometer-half me-2"></i>High Temperature</li>`;
+  }
+
+  if (o2 < 92) {
+    alertList.innerHTML += `<li class="mb-2 text-warning"><i class="bi bi-droplet me-2"></i>Low Oxygen Level</li>`;
+  }
+
+  if (pulse > 100) {
+    alertList.innerHTML += `<li class="mb-2 text-danger"><i class="bi bi-heart-pulse me-2"></i>High Pulse Rate</li>`;
+  }
+
+  if (smoke > 50) {
+    alertList.innerHTML += `<li class="mb-2 text-danger"><i class="bi bi-wind me-2"></i>Smoke Detected</li>`;
+  }
+
+  // Default message if no alerts
+  if (alertList.innerHTML === "") {
+    alertList.innerHTML = `<li class="mb-2 text-danger"><i class="bi bi-capsule me-2"></i>Take medicine on time</li>
+                          <li class="mb-2 text-info"><i class="bi bi-clock-history me-2"></i>Time for hydration</li>
+                          <li class="text-success"><i class="bi bi-shield-check me-2"></i>Vitals are stable</li>`;
+  }
+</script>
+<script>
+  // Example data (replace with real values from your app)
+  const currentHealth = 61;
+  const lastWeekHealth = 56;
+
+  const circumference = 2 * Math.PI * 35; // r = 35 from SVG
+  const offset = circumference * (1 - currentHealth / 100);
+
+  const progressCircle = document.querySelector(".circle-progress.health");
+  const valueText = document.getElementById("health-value");
+  const noteText = document.getElementById("health-note");
+
+  // Set the circle stroke dynamically
+  progressCircle.setAttribute("stroke-dasharray", circumference);
+  progressCircle.setAttribute("stroke-dashoffset", offset);
+
+  // Update text
+  valueText.textContent = `${currentHealth}%`;
+  const diff = currentHealth - lastWeekHealth;
+
+  if (diff > 0) {
+    noteText.innerHTML = `<i class="bi bi-arrow-up-right text-success me-1"></i>${diff}% higher than last week`;
+  } else if (diff < 0) {
+    noteText.innerHTML = `<i class="bi bi-arrow-down-right text-danger me-1"></i>${Math.abs(diff)}% lower than last week`;
+  } else {
+    noteText.textContent = `Same as last week`;
+  }
+</script>
+
 </body>
 </html>

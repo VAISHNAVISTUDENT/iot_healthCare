@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const WebSocket = require('ws');
 const Patient = require('./models/patient_info_general');
 const Doctor = require('./models/doctor_info');
-
+const LivePatient = require('./models/patient_live_info');
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
@@ -18,8 +18,7 @@ const io = new Server(server, {
     origin: '*'
   }
 });
-
-const MONGO_URL = 'mongodb://127.0.0.1:27017/Hospital_Management_System';
+const MONGO_URL = 'database://url;';
 
 // Configure app
 app.engine('ejs', ejsMate);
@@ -39,7 +38,14 @@ main().catch((err) => console.error(err));
 // Routes
 app.get('/Dashboard', async (req, res) => {
   const allDoctor = await Doctor.find({});
-  res.render('Dashboard.ejs', { allDoctor });
+  const allPatient = await Patient.find({});
+  const livePatient = await LivePatient.find({});
+  const numDoc = allDoctor.length;
+  const numPat = allPatient.length;
+  const numliveData = livePatient.length;
+  // console.log(num);
+  
+  res.render('Dashboard.ejs', { allDoctor ,numDoc,numPat,numliveData});
 });
 
 app.get('/addPatient', (req, res) => {
@@ -73,35 +79,41 @@ app.get('/:id/showPatientDashBoard', async (req, res) => {
 app.get('/addDoctor', (req, res) => {
   res.render('addDoctor.ejs');
 });
+app.get('/:id/doctor-info', async(req, res) => {
+  const doctor = await Doctor.findOne({_id : req.params.id});
+  res.render('doctorDashboard.ejs',{doctor});
+});
 
 app.post('/addDoctor', async (req, res) => {
   const newDoctor = new Doctor(req.body.Doctor);
   await newDoctor.save();
   res.redirect('/Dashboard');
 });
+// app.get('/:id/prescription',async(req,res) => {
+//   const id = req.params.id;
+//   res.render('prescription.ejs');
+// });
 
-app.post('/prescription', async (req, res) => {
-  const newPrescription = req.body.prescription;
-  // Logic for saving prescription
-});
 
 // WebSocket Server Setup
 const wss = new WebSocket.Server({ port: 8081 });
 wss.on('connection', (ws) => {
   console.log('Arduino connected via raw WebSocket');
-  
-  ws.on('message', (msg) => {
+
+  ws.on('message', async (msg) => {
     console.log('Data from Arduino:', msg.toString());
-    const data = JSON.parse(msg.toString());
-    const selfId = data.selfId;
-    // Forward this to all socket.io clients
-    io.emit(`${selfId}`,JSON.parse(msg.toString()));
 
-    // Optional: insert into DB here
-  });
-
-  ws.on('close', () => {
-    console.log('Arduino disconnected');
+    try {
+      const data = JSON.parse(msg.toString());
+      const selfId = data.selfId;
+      // Emit data to clients subscribed to this patient's selfId
+      io.emit(`${selfId}`, data);
+      // Save live data to MongoDB
+      const liveData = new LivePatient(data);
+      await liveData.save();
+    } catch (error) {
+      console.error('Error processing message:', error);
+    }
   });
 });
 
