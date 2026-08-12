@@ -32,6 +32,5 @@ This system connects embedded sensors to a web-based dashboard, creating a **Dig
 2. Data sent via Wi-Fi to Node.js server on local LAN →
 3. Server pushes data to frontend via Socket.IO →
 4. Dashboard updates in real time →
-5. Alerts are triggered if critical conditions are met
-
+5. Alerts are triggered if critical conditions are met.
 
