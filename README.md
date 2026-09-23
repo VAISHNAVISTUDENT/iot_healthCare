@@ -35,4 +35,4 @@ This system connects embedded sensors to a web-based dashboard, creating a **Dig
 5. Alerts are triggered if critical conditions are met.
 
 ## Architecture on eraser.io
-<img src="screenshot.png" alt="App Screenshot" width="500">
+<img src="Screenshot.png" alt="App Screenshot" width="500">
