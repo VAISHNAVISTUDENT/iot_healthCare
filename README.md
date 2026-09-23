@@ -11,12 +11,12 @@ This system connects embedded sensors to a web-based dashboard, creating a **Dig
 
 ## Key Features
 
-* 📡 Real-time data transfer using **Socket.IO**
-* 🌐 Local network communication (LAN) between NodeMCU and server
-* 🔒 Unique **selfId** assigned to each NodeMCU and linked to a patient
-* 💻 **Ejs dashboard** for live monitoring of patient vitals
-* 🚨 Visual and audio alerts (LEDs, buzzer, LCD) triggered when thresholds are exceeded
-* 🧠 Implements the concept of a **Digital Twin** for personalized monitoring
+* Real-time data transfer using **Socket.IO**
+* Local network communication (LAN) between NodeMCU and server
+* Unique **selfId** assigned to each NodeMCU and linked to a patient
+* **Ejs dashboard** for live monitoring of patient vitals
+* Visual and audio alerts (LEDs, buzzer, LCD) triggered when thresholds are exceeded
+* Implements the concept of a **Digital Twin** for personalized monitoring
 
 ## Tech Stack
 
@@ -35,4 +35,3 @@ This system connects embedded sensors to a web-based dashboard, creating a **Dig
 5. Alerts are triggered if critical conditions are met.
 
 ## Architecture on eraser.io
-https://app.eraser.io/workspace/fYRwdGfopCJ3gDWuGO1S?origin=share
